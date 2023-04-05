@@ -23,4 +23,12 @@ class Park
     visitors.map { |visitor| visitor.name }.sort
   end
 
+  def calculate_revenue
+    revenue = 0
+    @vehicles_entered.map do |vehicle|
+      revenue += vehicle.num_adults * admission_price
+    end
+    revenue
+  end
+
 end
