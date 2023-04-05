@@ -17,6 +17,21 @@ RSpec.describe Park do
     expect(park.admission_price).to eq(20)
   end
 
+  it 'has visitors' do
+    park = Park.new({name: "Acadia", admission_price: 20})
+
+    expect(park.vehicles_entered).to eq([])
+  end
+
+  it 'admits visitors' do
+    park = Park.new({name: "Acadia", admission_price: 20})
+    vehicle = Vehicle.new("2001", "Honda", "Civic")  
+
+    park.admit_vehicle(vehicle)
+
+    expect(park.vehicles_entered).to eq([vehicle])
+  end
+
 
 
 end
