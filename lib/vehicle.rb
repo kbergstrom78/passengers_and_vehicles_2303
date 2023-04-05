@@ -28,4 +28,8 @@ attr_reader :year,
     @passengers << passenger
   end
 
+  def num_adults
+    @passengers.find_all { |passenger| passenger.adult?}.count
+  end
+
 end
