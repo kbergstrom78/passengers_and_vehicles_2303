@@ -15,5 +15,12 @@ class Park
     @vehicles_entered << vehicle
   end
 
+  def visitors
+    @vehicles_entered.flat_map { |vehicle| vehicle.passengers}
+  end
+
+  def list_visitors
+    visitors.map { |visitor| visitor.name }.sort
+  end
 
 end
