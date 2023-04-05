@@ -27,26 +27,25 @@ RSpec.describe Park do
     park = Park.new({name: "Acadia", admission_price: 20})
     vehicle = Vehicle.new("2001", "Honda", "Civic")  
 
-    park.admit_vehicle(vehicle)
+    park.add_vehicle(vehicle)
 
     expect(park.vehicles_entered).to eq([vehicle])
   end
 
-
-  it 'can list visitors' do
+  it 'can list all passengers' do
     park = Park.new({name: "Acadia", admission_price: 20})
     vehicle = Vehicle.new("2001", "Honda", "Civic")  
-    charlie = Passenger.new({"name" => "Charlie", "age" => 18})  
-    jude = Passenger.new({"name" => "Jude", "age" => 20})
-    taylor = Passenger.new({"name" => "Taylor", "age" => 12})
+    chaco = Passenger.new({"name" => "Chaco", "age" => 35})
+    kila = Passenger.new({"name" => "Kila", "age" => 7})
 
-    vehicle.add_passenger(charlie)
-    vehicle.add_passenger(jude)
-    vehicle.add_passenger(taylor)
+    vehicle.add_passenger(chaco)
+    vehicle.add_passenger(kila)
 
-    park.admit_vehicle(vehicle)
+    park.add_vehicle(vehicle)
 
-    expect(park.list_visitors).to eq(["Charlie", "Jude", "Taylor"])
+    expect(park.vehicles_entered).to eq([vehicle])
+    expect(vehicle.passengers).to eq([chaco, kila])
+
   end
 
   it 'calculates revenue' do
@@ -69,12 +68,42 @@ RSpec.describe Park do
     vehicle_2.add_passenger(chaco)
     vehicle_2.add_passenger(kila)
 
-    park.admit_vehicle(vehicle_1)
-    park.admit_vehicle(vehicle_2)
+    park.add_vehicle(vehicle_1)
+    park.add_vehicle(vehicle_2)
 
     expect(park.calculate_revenue).to eq(60)
+  end
 
-  
+  it 'can list visitors in alpha order' do
+    park = Park.new({name: "Acadia", admission_price: 20})
+    vehicle = Vehicle.new("2001", "Honda", "Civic")  
+    charlie = Passenger.new({"name" => "Charlie", "age" => 18})  
+    jude = Passenger.new({"name" => "Jude", "age" => 20})
+    taylor = Passenger.new({"name" => "Taylor", "age" => 12})
+
+    vehicle.add_passenger(charlie)
+    vehicle.add_passenger(jude)
+    vehicle.add_passenger(taylor)
+
+    park.add_vehicle(vehicle)
+
+    expect(park.list_visitors).to eq(["Charlie", "Jude", "Taylor"])
+  end
+
+  it 'can list minors in alpha order' do
+    park = Park.new({name: "Acadia", admission_price: 20})
+    vehicle = Vehicle.new("2001", "Honda", "Civic")  
+    charlie = Passenger.new({"name" => "Charlie", "age" => 18})  
+    jude = Passenger.new({"name" => "Jude", "age" => 20})
+    taylor = Passenger.new({"name" => "Taylor", "age" => 12})
+
+    vehicle.add_passenger(charlie)
+    vehicle.add_passenger(jude)
+    vehicle.add_passenger(taylor)
+
+    park.add_vehicle(vehicle)
+
+    expect(park.list_minors).to eq([taylor])
   end
 
 

@@ -11,16 +11,8 @@ class Park
     @vehicles_entered = []
   end
 
-  def admit_vehicle(vehicle)
+  def add_vehicle(vehicle)
     @vehicles_entered << vehicle
-  end
-
-  def visitors
-    @vehicles_entered.flat_map { |vehicle| vehicle.passengers}
-  end
-
-  def list_visitors
-    visitors.map { |visitor| visitor.name }.sort
   end
 
   def calculate_revenue
@@ -29,6 +21,20 @@ class Park
       revenue += vehicle.num_adults * admission_price
     end
     revenue
+  end
+  
+  def visitors
+    @vehicles_entered.flat_map { |vehicle| vehicle.passengers}
+  end
+  
+  def list_visitors
+    visitors.map { |visitor| visitor.name }.sort
+  end
+
+  def list_minors
+    visitors.find_all { |visitor| !visitor.adult?}.map do |minor|
+      minor
+    end.sort_by(&:name)
   end
 
 end

@@ -1,6 +1,6 @@
 class Vehicle
 
-attr_reader :year,
+attr_accessor :year,
             :make,
             :model,
             :speeding,
